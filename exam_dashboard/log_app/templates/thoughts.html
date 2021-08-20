@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+<div>
+    <h1>Hi,{{request.session.user_first_name}} {{request.session.user_last_name}}!</h1>
+    {% if messages %}
+    <ul class="messages">    
+        {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <a href="/logout" style="margin-left: 1200px; font-size: 30px;">Logout</a>
+    <form action="/postCreation" method = 'POST'>
+        {%csrf_token%}
+        <textarea name="post" cols="50" rows="2" placeholder="Post a Great Thougth Here" required></textarea>
+        <button style="background-color: blue; color: cornsilk;">Add a Thought</button>
+    </form>
+
+    {% for post in all_posts %}
+        <p> {{post.user_post.first_name}} Says: 
+        <textarea name="post" cols="50" rows="2">{{post.post}}</textarea>
+        {% if post.user_post.id == request.session.user_id %}
+        <a href="delete/{{post.id}}" style="background-color: crimson;" >Delete</a>
+        {% endif %}
+        <br>
+        <a href="thought/{{post.id}}" style="margin-left: 70px;">Details</a>
+    {% endfor %}
+</html>
