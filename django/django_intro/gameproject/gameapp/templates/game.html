@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreatNumberGame</title>
+    <style>
+       .result {
+            width: 200px;
+            height: 100px;
+            background-color:{{color}};
+            
+        }
+    </style>
+</head>
+<center>
+<body>
+    <h1>Welcome to the Great Number Game!</h1>
+    <p>I am thinking of a number between 1 and 100 <br> Take a guess</p>
+    
+    <form action="/root" method="POST">
+        {% csrf_token %}
+        <input type="text" name="num" id="number">
+        <button>Submit</button>
+        </form>
+        <br>
+        <form action="/path" method="POST">
+            {% csrf_token %}
+            <button>play again</button>
+        </form>
+            
+
+        <br>
+        <div class=result>
+            {{status}}
+        </div>
+
+    
+
+</body>
+</center>
+</html>

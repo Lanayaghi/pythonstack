@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Add a Favorite Book</h1>
+    <form action="/books" method="POST">
+        {% csrf_token %}
+        Title: <input type="text" name="title" >
+        <br>
+        <br>
+        Description : 
+        <br>
+        <textarea name="desc" cols="30" rows="10"></textarea>
+        <br>
+        <br>
+        <button>Add</button>
+    </form>
+
+    {% for book in all_books %} 
+    <a href="/books/{{book.id}}">{{book.title}}</a>
+    <br>
+    <p>Added By : {{book.uploaded_by_id.first_name}} {{book.uploaded_by_id.last_name}}</p>
+    {% if book in fave_books %}
+    <p> (this is one of your Favorite)</p>
+    {% else %}
+    <a href="/add_fave/{{book.id}}">Add to Favorite</a>
+    {% endif %}
+    {% endfor %}
+    <br>
+    <a href="/logout">Logout</a>
+</body>
+</html>

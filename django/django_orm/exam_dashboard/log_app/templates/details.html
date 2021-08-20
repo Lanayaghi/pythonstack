@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<style>
+    .likes{
+        display: flex;
+        justify-content: flex-start;
+        margin: 10px;
+    }
+    .one{
+        margin-right: 10px;
+    }
+    .link{
+        margin-left: 1000px;
+    }
+   
+</style>
+<body>
+    <div class="link">
+        <a href="../">LogOut</a>
+        <a href="/thoughts">GoBackToDashboard</a>
+        </div>
+    <h3>{{request.session.user_first_name}} {{request.session.user_last_name}} Says:</h3>
+        <textarea name="post" cols="50" rows="2">{{onePost.post}}</textarea> 
+       <br>
+    <div class="likes">
+    <form action="/add_like/{{onePost.id}}">
+        <button type="submit" style="background-color: darkgreen;" class="one">Like</button>
+    </form>
+    <form action="/un_like/{{onePost.id}}">
+        <a type="submit" style="background-color: darkorange;" class="two" >UnLike</a>
+    </form>
+    </div>
+
+<h2>People who like this Post</h2>
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">first Name</th>
+        <th scope="col">Last Name</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for i in onePost.likes.all %}
+        <tr>
+        <th scope="row">{{i.first_name}} </th>
+        <td>{{i.last_name}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+</body>
+</html>
